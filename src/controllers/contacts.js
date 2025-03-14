@@ -17,6 +17,7 @@ const getOne = async (req, res) => {
 
     console.log(result);
     if (result === null) {
+        res.setHeader("Content-Type", "application/json");
         return res.status(404).json({error: "No contact found"});
     }
    
@@ -30,6 +31,7 @@ const create = async (req, res) =>  {
     const newContact = req.body;
 
     if (Object.keys(newContact).length === 0) {
+        res.setHeader("Content-Type", "application/json");
         return res.status(400).json({error: "No data for new contact"});
     }
 
@@ -44,6 +46,7 @@ const create = async (req, res) =>  {
             }
         );
     } else {
+        res.setHeader("Content-Type", "application/json");
         res.status(500).json(response.error || "Error creating contact");
     }
 }
@@ -54,15 +57,18 @@ const update = async (req, res) => {
     const updatedContact = req.body;
 
     if (Object.keys(updatedContact).length === 0) {
+        res.setHeader("Content-Type", "application/json");
         return res.status(400).json({error: "No data to update"});
     }
 
     const result = await mongodb.getDatabase().db("W01_Project").collection("Contacts").updateOne({ _id: userId }, { $set: updatedContact });
 
     if (result.matchedCount === 0) {
+        res.setHeader("Content-Type", "application/json");
         return res.status(400).json({error: "No contact matched the id you want to update"});
     }
 
+    res.setHeader("Content-Type", "application/json");
     res.status(200).json({message: "Contact updated successfully"});
 }
 
@@ -72,9 +78,11 @@ const remove = async (req, res) => {
     const result = await mongodb.getDatabase().db("W01_Project").collection("Contacts").deleteOne({ _id: userId});
 
     if (result.deletedCount === 0) {
+        res.setHeader("Content-Type", "application/json");
         return res.status(400).json({error: "No contact matched the id you want to delete"});
     }
 
+    res.setHeader("Content-Type", "application/json");
     res.status(200).json({message: "Contact deleted successfully"});
 }
 
