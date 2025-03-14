@@ -6,8 +6,8 @@ const doc = {
         description: "A simple CRUD web services for managing contacts",
         version: "1.0.0",
     },
-    host: "localhost:3000",
-    schemes: ['http']
+    host: "https://cse341-w01-project.onrender.com/",
+    schemes: ['https']
 };
 
 const outputFile = './swagger_output.json';
