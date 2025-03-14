@@ -1,0 +1,176 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Contacts API Documentation",
+    "description": "A simple CRUD web services for managing contacts",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "The base path which returns `Hello World`",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "The swagger interactive path to test the APIs",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contacts/": {
+      "get": {
+        "description": "GET all contacts API",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "POST a contact API",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Contact to be created",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "firstName", 
+                "lastName",
+                "email",
+                "favoriteColor",
+                "birthday"
+              ],
+              "properties": {
+                "firstName": { "type": "string", "example": "Happy" },
+                "lastName": { "type": "string", "example": "Grateful" },
+                "email": { "type": "string", "format": "email", "example": "happy@example.com" },
+                "favoriteColor": { "type": "string", "example": "Gold "},
+                "birthday": { "type": "string", "format": "date", "example": "02/23/2025" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "description": "GET one contact API",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "description": "PUT/UPDATE one contact API",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The id of the contact to update"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Contact fiels to update (only include what needs to be changed)",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": { "type": "string", "example": "Happy" },
+                "lastName": { "type": "string", "example": "Grateful" },
+                "email": { "type": "string", "format": "email", "example": "happy@example.com" },
+                "favoriteColor": { "type": "string", "example": "Gold "},
+                "birthday": { "type": "string", "format": "date", "example": "02/23/2025" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "description": "DELETE one contact API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The id of the contact to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  }
+}

@@ -28,6 +28,11 @@ const getOne = async (req, res) => {
 
 const create = async (req, res) =>  {
     const newContact = req.body;
+
+    if (Object.keys(newContact).length === 0) {
+        return res.status(400).json({error: "No data for new contact"});
+    }
+
     const result = await mongodb.getDatabase().db("W01_Project").collection("Contacts").insertOne(newContact);
 
     if (result.acknowledged) {
